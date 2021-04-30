@@ -8,4 +8,7 @@ def getPasteBin (url):
 	return xml
 
 def download (url, path):
-	open (path, "wb").write (requests.get (url).content)
+	content = requests.get (url).content
+	file = open (path, "wb")
+	file.write (content)
+	file.close ()
