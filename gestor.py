@@ -1,5 +1,6 @@
 import intermediate
 import os
+import json
 
 def mkdir (newdirs):#Creation of new dirs
 	absolutePath, newdirs = os.path.splitdrive (newdirs)
@@ -23,3 +24,8 @@ class Gestor:
 					print (os.path.join (os.getenv ("localappdata"), "escudoweb", "updater", i, j + ".zip"))
 					intermediate.download (self.data [i][j], os.path.join (os.getenv ("localappdata"), "escudoweb", "updater", i, j + ".zip"))
 					self.reg[i][j] = True
+
+	def saveReg (self):
+		self.file = open (os.path.join (os.getenv ("localappdata"), "escudoweb", "data", "updaterREG.json"), "w+")
+		self.file.write (json.dumps (self.reg))
+		self.file.close ()
