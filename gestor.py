@@ -1,6 +1,7 @@
 import intermediate
 import os
 import json
+from zipfile import ZipFile
 
 def mkdir (newdirs):#Creation of new dirs
 	absolutePath, newdirs = os.path.splitdrive (newdirs)
@@ -24,6 +25,15 @@ class Gestor:
 					print (os.path.join (path, i, j + ".zip"))
 					intermediate.download (self.data [i][j], os.path.join (path, i, j + ".zip"))
 					self.reg[i][j] = True
+
+					self.basePath, _ = os.path.split (path)
+					self.extract (os.path.join (self.basePath, "installed"), i, j)
+
+	def extract (self, path, feature, version):
+		if not os.path.exists (os.path.join (path, feature, version + ".zip")):
+			raise FileNotFoundError ("Packed update don't found")
+
+		ZipFile (os.path.join (path, feature, version + ".zip")).extractall (os.path.join (path, "installed", feature, version))
 
 	def saveReg (self):
 		self.file = open (os.path.join (os.getenv ("localappdata"), "escudoweb", "data", "updaterREG.json"), "w+")
