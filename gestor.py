@@ -20,9 +20,9 @@ class Gestor:
 			if not i in [j for j in self.reg]: self.reg [i] = {}
 			for j in self.data [i]:
 				if not j in [k for k in self.reg [i]]:
-					mkdir (os.path.join (os.getenv ("localappdata"), "escudoweb", "updater", i))
-					print (os.path.join (os.getenv ("localappdata"), "escudoweb", "updater", i, j + ".zip"))
-					intermediate.download (self.data [i][j], os.path.join (os.getenv ("localappdata"), "escudoweb", "updater", i, j + ".zip"))
+					mkdir (os.path.join (path, i))
+					print (os.path.join (path, i, j + ".zip"))
+					intermediate.download (self.data [i][j], os.path.join (path, i, j + ".zip"))
 					self.reg[i][j] = True
 
 	def saveReg (self):
