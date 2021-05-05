@@ -12,30 +12,33 @@ def mkdir (newdirs):#Creation of new dirs
 		absolutePath = os.path.join (absolutePath, i)
 
 class Gestor:
-	def __init__ (self, data, reg = {}):
+	def __init__ (self, basePath, data, reg = {}):
 		self.reg = reg
 		self.data = data
 
-	def download (self, path):
+		self.updaterPath = os.path.join (basePath, "updater")
+		self.installedPath = os.path.join (basePath, "installed")
+		self.dataPath = os.path.join (basePath, "data")
+
+	def download (self):
 		for i in self.data:
 			if not i in [j for j in self.reg]: self.reg [i] = {}
 			for j in self.data [i]:
 				if not j in [k for k in self.reg [i]]:
-					mkdir (os.path.join (path, i))
-					print (os.path.join (path, i, j + ".zip"))
-					intermediate.download (self.data [i][j], os.path.join (path, i, j + ".zip"))
+					mkdir (os.path.join (self.updaterPath, i))
+					intermediate.download (self.data [i][j], os.path.join (self.updaterPath, i, j + ".zip"))
 					self.reg[i][j] = True
 
-					self.basePath, _ = os.path.split (path)
-					self.extract (os.path.join (self.basePath, "installed"), i, j)
+					self.extract (i, j)
 
-	def extract (self, path, feature, version):
-		if not os.path.exists (os.path.join (path, feature, version + ".zip")):
+	def extract (self, feature, version):
+		if not os.path.exists (os.path.join (self.updaterPath, feature, version + ".zip")):
 			raise FileNotFoundError ("Packed update don't found")
 
-		ZipFile (os.path.join (path, feature, version + ".zip")).extractall (os.path.join (path, "installed", feature, version))
+		print (os.path.join (self.updaterPath, feature, version + ".zip"))
+		ZipFile (os.path.join (self.updaterPath, feature, version + ".zip")).extractall (os.path.join (self.installedPath, feature, version))
 
 	def saveReg (self):
-		self.file = open (os.path.join (os.getenv ("localappdata"), "escudoweb", "data", "updaterREG.json"), "w+")
+		self.file = open (os.path.join (self.dataPath, "updaterREG.json"), "w+")
 		self.file.write (json.dumps (self.reg))
 		self.file.close ()

@@ -10,11 +10,10 @@ def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 	newJson = json.loads (intermediate.getPasteBin (pasteBin))
 	if os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "data", "updaterREG.json")):
 		regJson = json.loads (open (os.path.join (os.getenv ("localappdata"), "escudoweb", "data", "updaterREG.json"), "r").readline ())
-		gest = gestor.Gestor (newJson, regJson)
+		gest = gestor.Gestor (os.path.join (os.getenv ("localappdata"), "escudoweb"), newJson, regJson)
 	else:
-		gest = gestor.Gestor (newJson)
-	gest.download (os.path.join (os.getenv ("localappdata"), "escudoweb", "updater"))
-
+		gest = gestor.Gestor (os.path.join (os.getenv ("localappdata"), "escudoweb"), newJson)
+	gest.download ()
 
 	gest.saveReg ()
 
