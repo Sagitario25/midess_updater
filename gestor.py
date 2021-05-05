@@ -16,8 +16,8 @@ class Gestor:
 		self.reg = reg
 		self.data = data
 
-		self.updaterPath = os.path.join (basePath, "updater")
-		self.installedPath = os.path.join (basePath, "installed")
+		self.updatesPath = os.path.join (basePath, "updates")
+		self.decompresedPath = os.path.join (basePath, "decompresed")
 		self.dataPath = os.path.join (basePath, "data")
 
 	def download (self):
@@ -25,20 +25,20 @@ class Gestor:
 			if not i in [j for j in self.reg]: self.reg [i] = {}
 			for j in self.data [i]:
 				if not j in [k for k in self.reg [i]]:
-					mkdir (os.path.join (self.updaterPath, i))
-					intermediate.download (self.data [i][j], os.path.join (self.updaterPath, i, j + ".zip"))
+					mkdir (os.path.join (self.updatesPath, i))
+					intermediate.download (self.data [i][j], os.path.join (self.updatesPath, i, j + ".zip"))
 					self.reg[i][j] = True
 
 					self.extract (i, j)
 
 	def extract (self, feature, version):
-		if not os.path.exists (os.path.join (self.updaterPath, feature, version + ".zip")):
+		if not os.path.exists (os.path.join (self.updatesPath, feature, version + ".zip")):
 			raise FileNotFoundError ("Packed update don't found")
 
-		print (os.path.join (self.updaterPath, feature, version + ".zip"))
-		ZipFile (os.path.join (self.updaterPath, feature, version + ".zip")).extractall (os.path.join (self.installedPath, feature, version))
+		print (os.path.join (self.updatesPath, feature, version + ".zip"))
+		ZipFile (os.path.join (self.updatesPath, feature, version + ".zip")).extractall (os.path.join (self.decompresedPath, feature, version))
 
 	def saveReg (self):
-		self.file = open (os.path.join (self.dataPath, "updaterREG.json"), "w+")
+		self.file = open (os.path.join (self.dataPath, "updatesREG.json"), "w+")
 		self.file.write (json.dumps (self.reg))
 		self.file.close ()

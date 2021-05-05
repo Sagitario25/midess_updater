@@ -18,8 +18,8 @@ def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 	gest.saveReg ()
 
 if __name__ == "__main__":
-	if not os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "updater")):
-		os.mkdir (os.path.join (os.getenv ("localappdata"), "escudoweb", "updater"))
+	if not os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "updates")):
+		os.mkdir (os.path.join (os.getenv ("localappdata"), "escudoweb", "updates"))
 	if not os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "data")):
 		os.mkdir (os.path.join (os.getenv ("localappdata"), "escudoweb",  "data"))
 	
