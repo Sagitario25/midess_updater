@@ -2,6 +2,7 @@ import intermediate
 import os
 import json
 from zipfile import ZipFile
+import shutil
 
 def mkdir (newdirs):#Creation of new dirs
 	absolutePath, newdirs = os.path.splitdrive (newdirs)
@@ -42,3 +43,6 @@ class Gestor:
 		self.file = open (os.path.join (self.dataPath, "updatesREG.json"), "w+")
 		self.file.write (json.dumps (self.reg))
 		self.file.close ()
+
+	def cleanDownloads (self):
+		shutil.rmtree (self.updatesPath)

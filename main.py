@@ -14,8 +14,8 @@ def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 	else:
 		gest = gestor.Gestor (os.path.join (os.getenv ("localappdata"), "escudoweb"), newJson)
 	gest.download ()
-
 	gest.saveReg ()
+	gest.cleanDownloads ()
 
 if __name__ == "__main__":
 	if not os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "updates")):
