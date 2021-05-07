@@ -46,3 +46,9 @@ class Gestor:
 
 	def cleanDownloads (self):
 		shutil.rmtree (self.updatesPath)
+
+def call (path, wait = True):
+	if wait:
+		os.system (f"start /wait {path}")
+	else:
+		os.startfile (path)
