@@ -4,8 +4,6 @@ import os
 
 import json
 
-print (intermediate.getPasteBin ("https://pastebin.com/cYtt14fw"))
-
 def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 	newJson = json.loads (intermediate.getPasteBin (pasteBin))
 	if os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "data", "updaterREG.json")):

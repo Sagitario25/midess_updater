@@ -39,7 +39,6 @@ class Gestor:
 		if not os.path.exists (os.path.join (self.updatesPath, feature, version + ".zip")):
 			raise FileNotFoundError ("Packed update don't found")
 
-		print (os.path.join (self.updatesPath, feature, version + ".zip"))
 		ZipFile (os.path.join (self.updatesPath, feature, version + ".zip")).extractall (os.path.join (self.decompresedPath, feature, version))
 
 	def install (self):
