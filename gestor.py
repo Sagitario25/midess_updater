@@ -52,3 +52,10 @@ def call (path, wait = True):
 		os.system (f"start /wait {path}")
 	else:
 		os.startfile (path)
+
+def copyContents (src, dest):
+	for i in os.listdir (src):
+		if os.path.isfile (os.path.join (src, i)):
+			shutil.copyfile (os.path.join (src, i), dest)
+		elif os.path.isdir (os.path.join (src, i)):
+			shutil.copytree (os.path.join (src, i), dest)
