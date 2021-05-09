@@ -26,7 +26,9 @@ class Gestor:
 		for i in self.data:
 			if not i in [j for j in self.reg]: self.reg [i] = {}
 			for j in self.data [i]:
-				if not j in [k for k in self.reg [i]]:
+				self.needDownload = not j in [k for k in self.reg [i]]
+				if not self.needDownload: self.needDownload = not self.reg [i][j]
+				if self.needDownload:
 					mkdir (os.path.join (self.updatesPath, i))
 					intermediate.download (self.data [i][j], os.path.join (self.updatesPath, i, j + ".zip"))
 					self.reg[i][j] = True
@@ -51,7 +53,7 @@ class Gestor:
 				copyContents (os.path.join (self.decompresedPath, feature, version, "output"), os.path.join (self.installPath, feature, version))
 
 	def saveReg (self):
-		self.file = open (os.path.join (self.dataPath, "updatesREG.json"), "w+")
+		self.file = open (os.path.join (self.dataPath, "updaterREG.json"), "w+")
 		self.file.write (json.dumps (self.reg))
 		self.file.close ()
 
