@@ -17,6 +17,7 @@ def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 	gest.install ()
 	gest.saveReg ()
 	gest.cleanDownloads ()
+	gest.cleanDecompresed ()
 
 if __name__ == "__main__":
 	if not os.path.exists (os.path.join (os.getenv ("localappdata"), "escudoweb", "updates")):

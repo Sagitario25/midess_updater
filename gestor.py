@@ -57,6 +57,9 @@ class Gestor:
 
 	def cleanDownloads (self):
 		shutil.rmtree (self.updatesPath)
+		
+	def cleanDecompresed (self):
+		shutil.rmtree (self.decompresedPath)
 
 def call (path, wait = True):
 	if wait:
