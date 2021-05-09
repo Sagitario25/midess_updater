@@ -20,6 +20,7 @@ class Gestor:
 		self.updatesPath = os.path.join (basePath, "updates")
 		self.decompresedPath = os.path.join (basePath, "decompresed")
 		self.dataPath = os.path.join (basePath, "data")
+		self.installPath = os.path.join (basePath, "install")
 
 	def download (self):
 		for i in self.data:
@@ -38,6 +39,16 @@ class Gestor:
 
 		print (os.path.join (self.updatesPath, feature, version + ".zip"))
 		ZipFile (os.path.join (self.updatesPath, feature, version + ".zip")).extractall (os.path.join (self.decompresedPath, feature, version))
+
+	def install (self):
+		for feature in os.listdir (self.decompresedPath):
+			for version in os.listdir (os.path.join (self.decompresedPath, feature)):
+				os.mkdir (os.path.join (self.decompresedPath, feature, version, "output"))
+				if os.path.exists (os.path.join (self.decompresedPath, feature, version, "start")):
+					for i in os.listdir (os.path.join (self.decompresedPath, feature, version, "start")):
+						call (os.path.join (self.decompresedPath, feature, version, "start", i))
+				mkdir (os.path.join (self.installPath, feature, version)) 
+				copyContents (os.path.join (self.decompresedPath, feature, version, "output"), os.path.join (self.installPath, feature, version))
 
 	def saveReg (self):
 		self.file = open (os.path.join (self.dataPath, "updatesREG.json"), "w+")

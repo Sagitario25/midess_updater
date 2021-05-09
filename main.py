@@ -14,6 +14,7 @@ def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 	else:
 		gest = gestor.Gestor (os.path.join (os.getenv ("localappdata"), "escudoweb"), newJson)
 	gest.download ()
+	gest.install ()
 	gest.saveReg ()
 	gest.cleanDownloads ()
 
