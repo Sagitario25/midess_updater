@@ -20,7 +20,7 @@ def main (pasteBin = "https://pastebin.com/cYtt14fw"):
 if __name__ == "__main__":
 	args = sys.argv
 	if len (args) != 1:
-		basePath = args [1]
+		basePath = os.path.dirname (args [1])
 	else:
 		basePath = os.path.join (os.getenv ("localappdata"), "escudoweb")
 		
