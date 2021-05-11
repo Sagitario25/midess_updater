@@ -6,6 +6,7 @@ import shutil
 
 def mkdir (newdirs):#Creation of new dirs
 	absolutePath, newdirs = os.path.splitdrive (newdirs)
+	absolutePath = absolutePath + "\\"
 	for i in newdirs.split ('\\'):
 		if not os.path.exists (os.path.join (absolutePath, i)):
 			os.mkdir (os.path.join (absolutePath, i))
@@ -44,7 +45,7 @@ class Gestor:
 	def install (self):
 		for feature in os.listdir (self.decompresedPath):
 			for version in os.listdir (os.path.join (self.decompresedPath, feature)):
-				os.mkdir (os.path.join (self.decompresedPath, feature, version, "output"))
+				if not os.path.exists (os.path.join (self.decompresedPath, feature, version, "output")): os.mkdir (os.path.join (self.decompresedPath, feature, version, "output"))
 				if os.path.exists (os.path.join (self.decompresedPath, feature, version, "start")):
 					for i in os.listdir (os.path.join (self.decompresedPath, feature, version, "start")):
 						call (os.path.join (self.decompresedPath, feature, version, "start", i))
@@ -71,6 +72,6 @@ def call (path, wait = True):
 def copyContents (src, dest):
 	for i in os.listdir (src):
 		if os.path.isfile (os.path.join (src, i)):
-			shutil.copyfile (os.path.join (src, i), dest)
+			shutil.copyfile (os.path.join (src, i), os.path.join (dest, i))
 		elif os.path.isdir (os.path.join (src, i)):
 			shutil.copytree (os.path.join (src, i), dest)
